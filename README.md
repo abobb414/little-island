@@ -16,6 +16,7 @@
 [![three.js](https://img.shields.io/badge/three.js-r16x+-000000?style=flat-square&logo=threedotjs&logoColor=white)](#技术栈)
 [![Species](https://img.shields.io/badge/plants-26_species-7fae55?style=flat-square)](#26-种植物)
 [![Visitors](https://img.shields.io/badge/visitors-17_to_find-e0a458?style=flat-square)](#17-位访客)
+[![Live](https://img.shields.io/badge/live-island.abobb.com-7fae55?style=flat-square&logo=cloudflare&logoColor=white)](https://island.abobb.com)
 
 </div>
 
@@ -168,6 +169,40 @@ python3 -m http.server 8080
 > 不要双击 `index.html` 用 `file://` 打开 —— ES module 走 `file://` 会被 CORS 挡掉，画面永远停在背景色。必须起一个 HTTP 服务。
 
 需要 **WebGL2**（Chrome / Edge、Safari 15+、Firefox 51+ 之后的版本都行），硬件加速要开着。没有 WebGL2 会直接白屏，没有降级方案。
+
+---
+
+## 部署
+
+线上跑在 **Cloudflare Pages**，项目名 `little-island`，直传静态文件（不接 GitHub、不跑构建），所以发版就是把目录推上去：
+
+```sh
+./deploy.sh
+```
+
+等价于：
+
+```sh
+npx wrangler pages deploy little-habitats \
+  --project-name little-island \
+  --branch main \
+  --commit-dirty=true
+```
+
+39 个文件，约 7 秒传完。命令结束会打印一个 `<hash>.little-island-bq9.pages.dev` 的预览地址，`island.abobb.com` 会在几十秒内跟着指到新版本。
+
+| | |
+|---|---|
+| 生产地址 | `https://island.abobb.com` |
+| Pages 默认域名 | `https://little-island-bq9.pages.dev` |
+| DNS | `island` → CNAME `little-island-bq9.pages.dev`，橙色云（走 Cloudflare 代理） |
+
+几点实测出来的细节：
+
+- **推的是 `little-habitats/`，不是仓库根**。仓库根的 `README.md` 和 `docs/` 不需要上线。
+- `--commit-dirty=true` 是必须的：工作区有未提交改动时 wrangler 会拒绝发版，除非显式放开。
+- 没全局装 wrangler 才走 `npx`，第一次会现拉一份；之后有缓存。
+- wrangler 的 OAuth 授权里有 `pages:write` 但**没有 DNS 写权限**，所以 `island.abobb.com` 这条 CNAME 只能在 Cloudflare 控制台加，加一次就够，不影响后续发版。
 
 ---
 
