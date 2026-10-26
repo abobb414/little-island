@@ -11,11 +11,14 @@
 
 在六边形地块上抬土、挖水、铺石，撒下的种子会自己挑地方扎根 —— 喜欢湿的往水边去，耐旱的留在石缝里。花开的时候蜜蜂和蝴蝶会来，树长高了松鼠会来，夜里有刺猬和萤火虫。你造出什么形状，就长出什么东西，包括那些只在某个季节、某个钟点才现身的东西。
 
+整座箱庭游戏由 **Claude Opus 5.5** 生成 —— 地形松弛算法、26 种植物的生长参数、17 位访客的出场条件，连同这套 three.js 渲染管线与程序化音频，全部由它写就。
+
 [![Build](https://img.shields.io/badge/build-none_to_run-3fb950?style=flat-square&logo=html5&logoColor=white)](#运行)
 [![WebGL2](https://img.shields.io/badge/WebGL2-required-2f80ed?style=flat-square&logo=webgl&logoColor=white)](#运行)
 [![three.js](https://img.shields.io/badge/three.js-r16x+-000000?style=flat-square&logo=threedotjs&logoColor=white)](#技术栈)
 [![Species](https://img.shields.io/badge/plants-26_species-7fae55?style=flat-square)](#26-种植物)
 [![Visitors](https://img.shields.io/badge/visitors-17_to_find-e0a458?style=flat-square)](#17-位访客)
+[![Claude Opus 5.5](https://img.shields.io/badge/generated%20with-Claude%20Opus%205.5-d97757?style=flat-square&logo=anthropic&logoColor=white)](#说明)
 [![Live](https://img.shields.io/badge/live-island.abobb.com-7fae55?style=flat-square&logo=cloudflare&logoColor=white)](https://island.abobb.com)
 
 </div>
@@ -260,6 +263,7 @@ npx wrangler pages deploy little-habitats \
 
 ## 说明
 
+- **整座游戏由 Claude Opus 5.5 生成**：一次对话里从零写完整套箱庭玩法 —— 六边形地形与松弛算法、26 种植物的生长与物候参数、17 位访客的条件判定、地标与节日、WebGL2 渲染管线、程序化音频。没有人工逐行改写，也没有拼接现成的游戏模板。
 - **仓库里只有构建产物**，游戏逻辑的源码不在这里。`assets/` 下的文件带内容指纹，是 Vite 打包后的输出，不可直接编辑。
 - 站内文案是英文的，游戏内的标题页与主菜单仍然写着 `Little Habitats`；仓库与项目名统一用 **Little Island**。
 - 没有针对移动端做像素级适配：触屏能玩（拖动旋转、双指缩放），但小屏上的面板排版不保证。
